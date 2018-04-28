@@ -50,7 +50,7 @@ using namespace boost::numeric::ublas;
 
 int main(int argc, char const *argv[])
 {
-	std::cout << "Raptor Codes Testing !" << std::endl;	
+	std::cout << "Raptor Codes Testing !" << std::endl;
 
 
     const int SYMBOL_LEN = 1;
@@ -62,10 +62,7 @@ int main(int argc, char const *argv[])
 
 	for (int i = 0; i < testing_symbol.K; ++i)
 	{
-		// if (i%2)
-		// {
-		// 	a.symbol[i].s[0] = 1;
-		// }
+
 		if (i%3)
 		{
 			testing_symbol.symbol[i].s[0] = 1;
@@ -91,72 +88,59 @@ int main(int argc, char const *argv[])
 
 
 
-    // for (int i = 0; i < ESI.size(); ++i)
-    // {
-    // 	printf("ESI: %d\n", ESI[i]);
-    // }
-
-	//printf("ESI: %d\n", ESI.size());
+     for (int i = 0; i < ESI.size(); ++i)
+     {
+     	printf("ESI: %d\n", ESI[i]);
+     }
+    printf("ESI: %d\n", ESI.size());
 
     D.symbol = encoder.LTEnc_Generate(ESI);
 
 
 	class R10_Decoder decoder(testing_symbol.K, SYMBOL_LEN);
 
-	// class Array_Data_Symbol C = decoder.Get_Inter_Symbols(D, testing_symbol.K);
-
-
- //    std::cout << "testing_symbol: " << std::endl;
- //    for (int i = 0; i < testing_symbol.K; ++i)
- //    {
- //        printf("%d ", testing_symbol.symbol[i].s[0]);
- //    }
- //    std::cout << std::endl;
-
- //     printf("D: \n");
-
- //    for (int i = 0; i < D.symbol.size(); ++i)
- //    {
- //        printf("%d ", D.symbol[i].s[0]);
- //    }
- //    printf("\n");
-
-	// printf("C: \n");
-
-	// for (int i = 0; i < C.symbol.size(); ++i)
-	// {
-	// 	printf("%d ", C.symbol[i].s[0]);
-	// }
-	// printf("\n");
-
-
-    // decoder.Inter_Symbols_Decoding(C);
-
-    // drop some symbols for testing
+ class Array_Data_Symbol C = decoder.Get_Inter_Symbols(D, testing_symbol.K);
+    std::cout << "testing_symbol: " << std::endl;
+    for (int i = 0; i < testing_symbol.K; ++i)
+    {
+        printf("%d ", testing_symbol.symbol[i].s[0]);
+    }
+    std::cout << std::endl;
+     printf("D: \n");
+    for (int i = 0; i < D.symbol.size(); ++i)
+    {
+        printf("%d ", D.symbol[i].s[0]);
+    }
+    printf("\n");
+ printf("C: \n");
+ for (int i = 0; i < C.symbol.size(); ++i)
+ {
+ 	printf("%d ", C.symbol[i].s[0]);
+ }
+ printf("\n");
+  decoder.Inter_Symbols_Decoding(C);
+  //drop some symbols for testing
      int loss = 1;
     D.symbol.erase(D.symbol.begin() + 3);
     D.ESIs.erase(D.ESIs.begin() + 3);
 
 
 
-   class Array_Data_Symbol source = decoder.Get_Source_Symbol(D, testing_symbol.K + overhead - loss);
+ class Array_Data_Symbol source = decoder.Get_Source_Symbol(D, testing_symbol.K + overhead - loss);
 
 
-    // printf("Source Symbol: \n");
-
-    // for (int i = 0; i < source.symbol.size(); ++i)
-    // {
-    //     printf("%d ", source.symbol[i].s[0]);
-    // }
-    // printf("\n");
-
-
-    // std::cout << "Testing Symbol: " << std::endl;
-    // for (int i = 0; i < testing_symbol.K; ++i)
-    // {
-    //     printf("%d ", testing_symbol.symbol[i].s[0]);
-    // }
-    // std::cout << std::endl;
+     printf("Source Symbol: \n");
+   for (int i = 0; i < source.symbol.size(); ++i)
+   {
+       printf("%d ", source.symbol[i].s[0]);
+   }
+   printf("\n");
+   std::cout << "Testing Symbol: " << std::endl;
+   for (int i = 0; i < testing_symbol.K; ++i)
+   {
+       printf("%d ", testing_symbol.symbol[i].s[0]);
+   }
+     std::cout << std::endl;
 
 
    for (int i = 0; i < source.symbol.size(); ++i)
